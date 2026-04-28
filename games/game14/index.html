@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DG1T71NNRN"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-DG1T71NNRN');
+</script>
+  <title>Basketball Stars — GeckoGames</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root { --bg:#0a0a0f; --surface:#12121a; --card:#1a1a26; --accent:#f0e040; --accent2:#ff3c6e; --accent3:#3cf0c8; --text:#e8e8f0; --border:#2a2a3a; }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background:var(--bg); color:var(--text); font-family:'Space Mono',monospace; min-height:100vh; }
+    header { border-bottom:2px solid var(--accent); padding:0 2rem; display:flex; align-items:center; justify-content:space-between; height:70px; background:var(--bg); }
+    .logo { font-family:'Bebas Neue',sans-serif; font-size:2rem; letter-spacing:4px; color:var(--accent); text-decoration:none; text-shadow:0 0 20px rgba(240,224,64,0.5); }
+    .logo span { color:var(--accent2); }
+    .back-btn { color:#8888aa; text-decoration:none; font-size:0.65rem; letter-spacing:2px; text-transform:uppercase; transition:color 0.2s; }
+    .back-btn:hover { color:var(--accent); }
+    .ad-banner { background:var(--surface); border-bottom:1px solid var(--border); padding:0.6rem 2rem; text-align:center; }
+    .ad-placeholder { background:var(--surface); border:1px dashed var(--border); border-radius:4px; display:flex; align-items:center; justify-content:center; color:#444466; font-size:0.65rem; letter-spacing:2px; text-transform:uppercase; }
+    .game-page { max-width:1100px; margin:0 auto; padding:2rem; display:grid; grid-template-columns:1fr 160px; gap:2rem; }
+    @media(max-width:768px){.game-page{grid-template-columns:1fr;}.sidebar{display:none;}}
+    .game-header { margin-bottom:1rem; }
+    .game-tag { font-size:0.6rem; letter-spacing:2px; text-transform:uppercase; color:var(--accent3); margin-bottom:0.4rem; }
+    .game-title { font-family:'Bebas Neue',sans-serif; font-size:2.5rem; letter-spacing:4px; color:var(--text); }
+    .game-frame-wrapper { width:100%; aspect-ratio:16/9; background:#000; border:2px solid var(--border); border-radius:4px; overflow:hidden; }
+    .game-frame-wrapper iframe { width:100%; height:100%; border:none; display:block; }
+    .fullscreen-btn { display:block; width:100%; margin-top:0.6rem; background:var(--card); border:1px solid var(--border); color:var(--text); font-family:'Space Mono',monospace; font-size:0.65rem; letter-spacing:2px; text-transform:uppercase; padding:0.6rem; cursor:pointer; transition:all 0.2s; border-radius:2px; text-align:center; }
+    .fullscreen-btn:hover { background:var(--accent); color:var(--bg); border-color:var(--accent); }
+    .mid-ad { margin:1.5rem 0; text-align:center; }
+    .game-desc-section { margin-top:1.5rem; }
+    .game-desc-section h2 { font-family:'Bebas Neue',sans-serif; font-size:1.2rem; letter-spacing:3px; color:var(--accent); margin-bottom:0.8rem; }
+    .game-desc-section p { font-size:0.7rem; color:#8888aa; line-height:1.8; }
+    .controls { margin-top:1rem; background:var(--surface); border:1px solid var(--border); border-radius:4px; padding:1rem; }
+    .controls h3 { font-size:0.65rem; letter-spacing:3px; text-transform:uppercase; color:var(--accent3); margin-bottom:0.8rem; }
+    .control-row { display:flex; gap:0.5rem; align-items:center; margin-bottom:0.4rem; font-size:0.65rem; color:#8888aa; }
+    .key { background:var(--card); border:1px solid var(--border); padding:0.2rem 0.5rem; border-radius:3px; font-size:0.65rem; color:var(--text); min-width:32px; text-align:center; }
+    .sidebar { display:flex; flex-direction:column; gap:1rem; padding-top:4rem; }
+    footer { border-top:1px solid var(--border); padding:2rem; text-align:center; font-size:0.65rem; color:#444466; letter-spacing:2px; }
+    footer a { color:#666688; text-decoration:none; }
+    footer a:hover { color:var(--accent); }
+  </style>
+</head>
+<body>
+  <div class="ad-banner">
+    <div class="ad-placeholder" style="height:90px;max-width:728px;margin:0 auto;">[ AD SPACE — 728×90 ]</div>
+  </div>
+  <header>
+    <a class="logo" href="../../index.html">GECKO<span>GAMES</span></a>
+    <a class="back-btn" href="../../index.html">← Back to Games</a>
+  </header>
+  <div class="game-page">
+    <div>
+      <div class="game-header">
+        <div class="game-tag">Sports</div>
+        <div class="game-title">BASKETBALL STARS</div>
+      </div>
+      <div class="game-frame-wrapper">
+        <iframe id="gameFrame" src="https://3kho.github.io/projects/basketball-stars/index.html" allowfullscreen title="1v1.LOL" sandbox="allow-scripts allow-same-origin allow-pointer-lock allow-orientation-lock"></iframe>
+      </div>
+      <button class="fullscreen-btn" onclick="goFullscreen()">⛶ FULLSCREEN</button>
+      <div class="mid-ad">
+        <div class="ad-placeholder" style="height:280px;max-width:336px;margin:0 auto;">[ AD SPACE — 336×280 ]</div>
+      </div>
+      <div class="game-desc-section">
+        <h2>ABOUT THIS GAME</h2>
+        <p>Play alone, or with friends, either way it's amazing!</p>
+        <div class="controls">
+        </div>
+      </div>
+    </div>
+    <div class="sidebar">
+      <div class="ad-placeholder" style="width:160px;height:600px;">[ AD<br>160×600 ]</div>
+    </div>
+  </div>
+  <footer>
+    <p>© 2025 GECKOGAMES &nbsp;·&nbsp; <a href="/GeckoGames/privacy-policy/">Privacy Policy</a> &nbsp;·&nbsp; <a href="#">Contact</a></p>
+  </footer>
+  <script>
+    function goFullscreen() {
+      const frame = document.getElementById('gameFrame');
+      if (frame.requestFullscreen) frame.requestFullscreen();
+      else if (frame.webkitRequestFullscreen) frame.webkitRequestFullscreen();
+    }
+  </script>
+</body>
+</html>

@@ -863,26 +863,27 @@
   }
 
   function renderFavorites() {
-    const favs = getFavs();
-    const grid = document.getElementById('favoritesGrid');
-    const section = document.getElementById('favoritesSection');
-    grid.innerHTML = '';
-    if (favs.length === 0) {
-      section.classList.remove('has-favorites');
-      return;
-    }
-    section.classList.add('has-favorites');
-    favs.forEach(gameId => {
-      const original = document.querySelector(`.game-card[href="games/${gameId}/index.html"]`);
-      if (original) {
-        const clone = original.cloneNode(true);
-        const starBtn = clone.querySelector('.star-btn');
-        if (starBtn) starBtn.remove();
-        grid.appendChild(clone);
-      }
-    });
+  const favs = getFavs();
+  const grid = document.getElementById('favoritesGrid');
+  const section = document.getElementById('favoritesSection');
+  grid.innerHTML = '';
+  if (favs.length === 0) {
+    section.classList.remove('has-favorites');
+    return;
   }
-
+  section.classList.add('has-favorites');
+  favs.forEach(gameId => {
+    // Try multiple possible href formats
+    let original = document.querySelector(`.game-card[href="games/${gameId}/index.html"]`)
+      || document.querySelector(`.game-card[href*="${gameId}"]`);
+    if (original) {
+      const clone = original.cloneNode(true);
+      const starBtn = clone.querySelector('.star-btn');
+      if (starBtn) starBtn.remove();
+      grid.appendChild(clone);
+    }
+  });
+}
   // Fix star buttons to use data-id instead of onclick
   document.querySelectorAll('.star-btn').forEach(btn => {
     const onclickVal = btn.getAttribute('onclick');

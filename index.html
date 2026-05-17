@@ -16,6 +16,23 @@
   <title>GeckoGames — Free Online Games</title>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
   <style>
+    .remove-fav-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: var(--accent2);
+  border: none;
+  color: #fff;
+  font-size: 0.6rem;
+  font-family: 'Space Mono', monospace;
+  letter-spacing: 1px;
+  padding: 0.2rem 0.5rem;
+  border-radius: 3px;
+  cursor: pointer;
+  z-index: 10;
+  text-transform: uppercase;
+}
+.remove-fav-btn:hover { background: #cc2255; }
     .search-wrapper {
   max-width: 1200px;
   margin: 0 auto;
@@ -1059,13 +1076,25 @@
   }
   section.classList.add('has-favorites');
   favs.forEach(gameId => {
-    // Try multiple possible href formats
     let original = document.querySelector(`.game-card[href="games/${gameId}/index.html"]`)
       || document.querySelector(`.game-card[href*="${gameId}"]`);
     if (original) {
       const clone = original.cloneNode(true);
       const starBtn = clone.querySelector('.star-btn');
       if (starBtn) starBtn.remove();
+      const removeBtn = document.createElement('button');
+      removeBtn.className = 'remove-fav-btn';
+      removeBtn.textContent = '✕ REMOVE';
+      removeBtn.onclick = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        let favs = getFavs();
+        favs = favs.filter(f => f !== gameId);
+        saveFavs(favs);
+        renderFavorites();
+        updateStars();
+      };
+      clone.appendChild(removeBtn);
       grid.appendChild(clone);
     }
   });

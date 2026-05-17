@@ -16,6 +16,34 @@
   <title>GeckoGames — Free Online Games</title>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
   <style>
+    .search-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem 2rem;
+}
+.search-bar {
+  width: 100%;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0.8rem 1.2rem;
+  color: var(--text);
+  font-family: 'Space Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.search-bar::placeholder { color: #444466; }
+.search-bar:focus { border-color: var(--accent); }
+.no-results {
+  display: none;
+  color: #444466;
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 2rem 0;
+}
     #favoritesGrid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
@@ -291,6 +319,10 @@
 
   <div class="main-layout">
     <div>
+      <div class="search-wrapper">
+  <input class="search-bar" type="text" id="searchBar" placeholder="🔍 SEARCH GAMES..." oninput="searchGames()"/>
+</div>
+<div class="no-results" id="noResults">NO GAMES FOUND</div>
       <div class="section-title" id="sports">FEATURED <span>GAMES</span></div>
       <div class="games-grid">
 
@@ -901,6 +933,26 @@
   </footer>
 
   <script>
+    function searchGames() {
+  const query = document.getElementById('searchBar').value.toLowerCase();
+  const cards = document.querySelectorAll('.games-grid .game-card');
+  let found = 0;
+
+  cards.forEach(card => {
+    const title = card.querySelector('.game-title')?.textContent.toLowerCase() || '';
+    const tag = card.querySelector('.game-tag')?.textContent.toLowerCase() || '';
+    const desc = card.querySelector('.game-desc')?.textContent.toLowerCase() || '';
+
+    if (title.includes(query) || tag.includes(query) || desc.includes(query)) {
+      card.style.display = 'block';
+      found++;
+    } else {
+      card.style.display = 'none';
+    }
+  });
+
+  document.getElementById('noResults').style.display = found === 0 && query !== '' ? 'block' : 'none';
+}
   const favKey = 'geckoFavorites';
 
   function getFavs() {

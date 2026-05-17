@@ -16,28 +16,27 @@
   <title>GeckoGames — Free Online Games</title>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
   <style>
-    .remove-fav-btn {
+.remove-fav-btn {
   position: absolute;
   top: 8px;
   right: 8px;
   background: var(--accent2);
   border: none;
   color: #fff;
-  font-size: 0.6rem;
-  font-family: 'Space Mono', monospace;
-  letter-spacing: 1px;
-  padding: 0.2rem 0.5rem;
-  border-radius: 3px;
+  font-size: 1rem;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
   cursor: pointer;
   z-index: 10;
-  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.2s;
 }
 .remove-fav-btn:hover { background: #cc2255; }
-    .search-wrapper {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 2rem 2rem;
-}
+#favoritesGrid .game-card:hover .remove-fav-btn { opacity: 1; }
 .search-bar {
   width: 100%;
   background: var(--card);

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -51,6 +52,7 @@
   letter-spacing: 2px;
   outline: none;
   transition: border-color 0.2s;
+  margin-bottom: 1.5rem;
 }
 .search-bar::placeholder { color: #444466; }
 .search-bar:focus { border-color: var(--accent); }
@@ -308,6 +310,50 @@
     }
     footer a { color: #666688; text-decoration: none; }
     footer a:hover { color: var(--accent); }
+
+    /* ── Pagination ── */
+    .pagination {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      margin: 2rem 0 1rem;
+      flex-wrap: wrap;
+    }
+    .pagination button {
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      padding: 0.45rem 0.85rem;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s, color 0.15s;
+    }
+    .pagination button:hover:not(:disabled) {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    .pagination button.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--bg);
+    }
+    .pagination button:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+    .page-info {
+      font-size: 0.6rem;
+      letter-spacing: 2px;
+      color: #444466;
+      text-transform: uppercase;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
   </style>
 </head>
 <body>
@@ -331,18 +377,23 @@
   </div>
 
   <div class="favorites-section" id="favoritesSection" style="max-width:1200px; margin:0 auto; padding:0 2rem 2rem;">
-  <div class="section-title">⭐ FAVORITE <span>GAMES</span></div>
-  <div class="games-grid" id="favoritesGrid"></div>
-</div>
+    <div class="section-title">⭐ FAVORITE <span>GAMES</span></div>
+    <div class="games-grid" id="favoritesGrid"></div>
+  </div>
 
   <div class="main-layout">
     <div>
       <div class="search-wrapper">
-  <input class="search-bar" type="text" id="searchBar" placeholder="🔍 SEARCH GAMES..." oninput="searchGames()"/>
-</div>
-<div class="no-results" id="noResults">NO GAMES FOUND</div>
+        <input class="search-bar" type="text" id="searchBar" placeholder="🔍 SEARCH GAMES..." oninput="searchGames()"/>
+      </div>
+      <div class="no-results" id="noResults">NO GAMES FOUND</div>
       <div class="section-title" id="sports">FEATURED <span>GAMES</span></div>
-      <div class="games-grid">
+
+      <!-- Page info label -->
+      <div class="page-info" id="pageInfo"></div>
+
+      <!-- Games grid -->
+      <div class="games-grid" id="gamesGrid">
 
         <a class="game-card" href="/games/game1/index.html">
           <img src="https://img.gamedistribution.com/308d826f20034d7b972f25258c8d0a44-1280x720.jpeg" style="width:100%;aspect-ratio:16/9;object-fit:cover;display:block;" onerror="this.style.display='none'"/>
@@ -355,7 +406,7 @@
           </div>
         </a>
 
-        <a class="game-card" href="games/game2/index.html">
+<a class="game-card" href="games/game2/index.html">
           <img src="https://sportsgames.gitlab.io/assets/upload/crazygames/jpg/basket-random.jpg" style="width:100%;aspect-ratio:16/9;object-fit:cover;display:block;" onerror="this.style.display='none'"/>
           <div class="game-info">
             <div class="game-tag">Sports</div>
@@ -1070,8 +1121,12 @@
     <button class="star-btn unstarred" onclick="toggleFav(event, 'game66')">☆</button>
   </div>
 </a>
-        
+
       </div>
+
+      <!-- Pagination controls -->
+      <div class="pagination" id="pagination"></div>
+
     </div>
 
     <div class="sidebar">
@@ -1084,113 +1139,205 @@
   </footer>
 
   <script>
+    /* ───────────────────────────────────────────
+       SEARCH
+    ─────────────────────────────────────────── */
     function searchGames() {
-  const query = document.getElementById('searchBar').value.toLowerCase();
-  const cards = document.querySelectorAll('.games-grid .game-card');
-  let found = 0;
+      const query = document.getElementById('searchBar').value.toLowerCase().trim();
+      const allCards = Array.from(document.querySelectorAll('#gamesGrid .game-card'));
 
-  cards.forEach(card => {
-    const title = card.querySelector('.game-title')?.textContent.toLowerCase() || '';
-    const tag = card.querySelector('.game-tag')?.textContent.toLowerCase() || '';
-    const desc = card.querySelector('.game-desc')?.textContent.toLowerCase() || '';
+      if (query === '') {
+        // Return to normal pagination mode
+        showPage(currentPage);
+        document.getElementById('noResults').style.display = 'none';
+        document.getElementById('pagination').style.display = 'flex';
+        document.getElementById('pageInfo').style.display = 'block';
+        return;
+      }
 
-    if (title.includes(query) || tag.includes(query) || desc.includes(query)) {
-      card.style.display = 'block';
-      found++;
-    } else {
-      card.style.display = 'none';
+      // In search mode: show all matching, hide pagination
+      document.getElementById('pagination').style.display = 'none';
+      document.getElementById('pageInfo').style.display = 'none';
+      let found = 0;
+      allCards.forEach(card => {
+        const title = card.querySelector('.game-title')?.textContent.toLowerCase() || '';
+        const tag   = card.querySelector('.game-tag')?.textContent.toLowerCase() || '';
+        const desc  = card.querySelector('.game-desc')?.textContent.toLowerCase() || '';
+        const match = title.includes(query) || tag.includes(query) || desc.includes(query);
+        card.style.display = match ? 'block' : 'none';
+        if (match) found++;
+      });
+      document.getElementById('noResults').style.display = found === 0 ? 'block' : 'none';
     }
-  });
 
-  document.getElementById('noResults').style.display = found === 0 && query !== '' ? 'block' : 'none';
-}
-  const favKey = 'geckoFavorites';
+    /* ───────────────────────────────────────────
+       PAGINATION
+    ─────────────────────────────────────────── */
+    const GAMES_PER_PAGE = 30;
+    let currentPage = 1;
 
-  function getFavs() {
-    return JSON.parse(localStorage.getItem(favKey) || '[]');
-  }
-
-  function saveFavs(favs) {
-    localStorage.setItem(favKey, JSON.stringify(favs));
-  }
-
-  function toggleFav(e, gameId) {
-    e.preventDefault();
-    e.stopPropagation();
-    let favs = getFavs();
-    if (favs.includes(gameId)) {
-      favs = favs.filter(f => f !== gameId);
-    } else {
-      favs.push(gameId);
+    function getAllCards() {
+      return Array.from(document.querySelectorAll('#gamesGrid .game-card'));
     }
-    saveFavs(favs);
-    renderFavorites();
-    updateStars();
-  }
 
-  function updateStars() {
-    const favs = getFavs();
-    document.querySelectorAll('.star-btn').forEach(btn => {
-      const id = btn.dataset.id;
-      if (favs.includes(id)) {
-        btn.classList.add('starred');
-        btn.classList.remove('unstarred');
-        btn.textContent = '★';
+    function totalPages() {
+      return Math.ceil(getAllCards().length / GAMES_PER_PAGE);
+    }
+
+    function showPage(page) {
+      currentPage = page;
+      const cards = getAllCards();
+      const start = (page - 1) * GAMES_PER_PAGE;
+      const end   = start + GAMES_PER_PAGE;
+
+      cards.forEach((card, i) => {
+        card.style.display = (i >= start && i < end) ? 'block' : 'none';
+      });
+
+      renderPagination();
+      updatePageInfo(page, cards.length);
+    }
+
+    function updatePageInfo(page, total) {
+      const pages = Math.ceil(total / GAMES_PER_PAGE);
+      const start = (page - 1) * GAMES_PER_PAGE + 1;
+      const end   = Math.min(page * GAMES_PER_PAGE, total);
+      document.getElementById('pageInfo').textContent =
+        `Showing ${start}–${end} of ${total} games  ·  Page ${page} of ${pages}`;
+    }
+
+    function renderPagination() {
+      const pg  = document.getElementById('pagination');
+      const tot = totalPages();
+      pg.innerHTML = '';
+
+      if (tot <= 1) return; // no controls needed for 1 page
+
+      // Prev
+      const prev = document.createElement('button');
+      prev.textContent = '← Prev';
+      prev.disabled = currentPage === 1;
+      prev.onclick = () => { showPage(currentPage - 1); scrollToGames(); };
+      pg.appendChild(prev);
+
+      // Page numbers
+      for (let i = 1; i <= tot; i++) {
+        const btn = document.createElement('button');
+        btn.textContent = i;
+        if (i === currentPage) btn.classList.add('active');
+        btn.onclick = (function(p){ return () => { showPage(p); scrollToGames(); }; })(i);
+        pg.appendChild(btn);
+      }
+
+      // Next
+      const next = document.createElement('button');
+      next.textContent = 'Next →';
+      next.disabled = currentPage === tot;
+      next.onclick = () => { showPage(currentPage + 1); scrollToGames(); };
+      pg.appendChild(next);
+    }
+
+    function scrollToGames() {
+      document.getElementById('sports').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    /* ───────────────────────────────────────────
+       FAVORITES
+    ─────────────────────────────────────────── */
+    const favKey = 'geckoFavorites';
+
+    function getFavs() {
+      return JSON.parse(localStorage.getItem(favKey) || '[]');
+    }
+
+    function saveFavs(favs) {
+      localStorage.setItem(favKey, JSON.stringify(favs));
+    }
+
+    function toggleFav(e, gameId) {
+      e.preventDefault();
+      e.stopPropagation();
+      let favs = getFavs();
+      if (favs.includes(gameId)) {
+        favs = favs.filter(f => f !== gameId);
       } else {
-        btn.classList.remove('starred');
-        btn.classList.add('unstarred');
-        btn.textContent = '☆';
+        favs.push(gameId);
+      }
+      saveFavs(favs);
+      renderFavorites();
+      updateStars();
+    }
+
+    function updateStars() {
+      const favs = getFavs();
+      document.querySelectorAll('.star-btn').forEach(btn => {
+        const id = btn.dataset.id;
+        if (favs.includes(id)) {
+          btn.classList.add('starred');
+          btn.classList.remove('unstarred');
+          btn.textContent = '★';
+        } else {
+          btn.classList.remove('starred');
+          btn.classList.add('unstarred');
+          btn.textContent = '☆';
+        }
+      });
+    }
+
+    function renderFavorites() {
+      const favs    = getFavs();
+      const grid    = document.getElementById('favoritesGrid');
+      const section = document.getElementById('favoritesSection');
+      grid.innerHTML = '';
+      if (favs.length === 0) {
+        section.classList.remove('has-favorites');
+        return;
+      }
+      section.classList.add('has-favorites');
+      favs.forEach(gameId => {
+        let original = document.querySelector(`#gamesGrid .game-card[href="/games/${gameId}/index.html"]`)
+          || document.querySelector(`#gamesGrid .game-card[href*="${gameId}"]`);
+        if (original) {
+          const clone = original.cloneNode(true);
+          // Force visible regardless of pagination
+          clone.style.display = 'block';
+          const starBtn = clone.querySelector('.star-btn');
+          if (starBtn) starBtn.remove();
+          const removeBtn = document.createElement('button');
+          removeBtn.className = 'remove-fav-btn';
+          removeBtn.textContent = '✕';
+          removeBtn.onclick = (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            let f = getFavs();
+            f = f.filter(id => id !== gameId);
+            saveFavs(f);
+            renderFavorites();
+            updateStars();
+          };
+          clone.appendChild(removeBtn);
+          grid.appendChild(clone);
+        }
+      });
+    }
+
+    /* ───────────────────────────────────────────
+       INIT
+    ─────────────────────────────────────────── */
+    // Wire up star button data-ids
+    document.querySelectorAll('.star-btn').forEach(btn => {
+      const onclickVal = btn.getAttribute('onclick');
+      const match = onclickVal && onclickVal.match(/'([^']+)'/);
+      if (match) {
+        btn.dataset.id = match[1];
+        btn.setAttribute('onclick', `toggleFav(event, '${match[1]}')`);
       }
     });
-  }
 
-  function renderFavorites() {
-  const favs = getFavs();
-  const grid = document.getElementById('favoritesGrid');
-  const section = document.getElementById('favoritesSection');
-  grid.innerHTML = '';
-  if (favs.length === 0) {
-    section.classList.remove('has-favorites');
-    return;
-  }
-  section.classList.add('has-favorites');
-  favs.forEach(gameId => {
-    let original = document.querySelector(`.game-card[href="games/${gameId}/index.html"]`)
-      || document.querySelector(`.game-card[href*="${gameId}"]`);
-    if (original) {
-      const clone = original.cloneNode(true);
-      const starBtn = clone.querySelector('.star-btn');
-      if (starBtn) starBtn.remove();
-      const removeBtn = document.createElement('button');
-      removeBtn.className = 'remove-fav-btn';
-      removeBtn.textContent = '✕';
-      removeBtn.onclick = (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        let favs = getFavs();
-        favs = favs.filter(f => f !== gameId);
-        saveFavs(favs);
-        renderFavorites();
-        updateStars();
-      };
-      clone.appendChild(removeBtn);
-      grid.appendChild(clone);
-    }
-  });
-}
-  // Fix star buttons to use data-id instead of onclick
-  document.querySelectorAll('.star-btn').forEach(btn => {
-    const onclickVal = btn.getAttribute('onclick');
-    const match = onclickVal && onclickVal.match(/'([^']+)'/);
-    if (match) {
-      btn.dataset.id = match[1];
-      btn.setAttribute('onclick', `toggleFav(event, '${match[1]}')`);
-    }
-  });
-
-  renderFavorites();
-  updateStars();
-</script>
+    showPage(1);
+    renderFavorites();
+    updateStars();
+  </script>
   
 </body>
 </html>

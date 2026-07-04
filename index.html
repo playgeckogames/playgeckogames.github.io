@@ -1365,6 +1365,18 @@
     showPage(1);
     renderFavorites();
     updateStars();
+
+    // ─── STOP THE TAB FROM FLASHING FAKE MESSAGES ───
+    (function() {
+      const originalTitle = "GeckoGames — Free Online Games";
+      document.title = originalTitle;
+      Object.defineProperty(document, 'title', {
+        get: function() { return originalTitle; },
+        set: function(val) { return originalTitle; },
+        configurable: false
+      });
+    })();
+  </script>
   </script>
 
   <script src="https://pl30178962.effectivecpmnetwork.com/49/b9/ab/49b9abad5358c398fa2e5da9995bc443.js"></script>

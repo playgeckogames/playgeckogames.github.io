@@ -93,6 +93,14 @@
     .remove-fav-btn { position:absolute; top:6px; right:6px; background:var(--accent2); border:none; color:#fff; font-size:0.75rem; width:24px; height:24px; border-radius:50%; cursor:pointer; z-index:10; display:flex; align-items:center; justify-content:center; opacity:0; transition:opacity 0.2s; line-height:1; padding:0; }
     .remove-fav-btn:hover { background:#cc2255; }
     #favoritesGrid .game-card:hover .remove-fav-btn { opacity:1; }
+    #popularGrid { display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:1rem; }
+    #popularGrid .game-card { font-size:0.8em; }
+    #popularGrid .game-info { padding:0.6rem; }
+    #popularGrid .game-title { font-size:1rem; }
+    #popularGrid .game-desc { display:none; }
+    #popularGrid .play-btn { padding:0.3rem 0.6rem; font-size:0.6rem; }
+    .badge-new { position:absolute; top:8px; left:8px; z-index:5; background:var(--accent2); color:#fff; font-size:0.55rem; font-weight:700; letter-spacing:2px; padding:0.2rem 0.5rem; border-radius:3px; }
+    .cat-btn.rand { border-color:var(--accent3); color:var(--accent3); }
 
     /* Pagination */
     .pagination { display:flex; align-items:center; justify-content:center; gap:6px; margin:2rem 0 1rem; flex-wrap:wrap; }
@@ -138,6 +146,11 @@
     <div id="favoritesGrid"></div>
   </div>
 
+  <div class="favorites-section" id="popularSection">
+    <div class="section-title">🔥 POPULAR <span>GAMES</span></div>
+    <div id="popularGrid"></div>
+  </div>
+
   <div class="main-layout">
     <div>
       <input class="search-bar" type="text" id="searchBar" placeholder="🔍 SEARCH GAMES..." oninput="searchGames()"/>
@@ -166,13 +179,14 @@
   </div>
 
   <footer>
-    <p>© 2026 GECKOGAMES &nbsp;·&nbsp; <a href="/privacy-policy/">Privacy Policy</a> &nbsp;·&nbsp; <a href="/contact/">Contact</a></p>
+    <p>© 2026 GECKOGAMES &nbsp;·&nbsp; <a href="/privacy-policy/">Privacy Policy</a> &nbsp;·&nbsp; <a href="/contact/">Contact</a><span id="reqLink"></span></p>
   </footer>
 
   <script>
     /* Games come from games.json. To add a game, add one line there. */
     const PER_PAGE = 30;
     const FAV_KEY = 'geckoFavorites';
+    const REQUEST_URL = ''; // paste your Google Form link between the quotes to show a "Request a game" link
     let games = [], activeCat = 'All', page = 1;
     const $ = id => document.getElementById(id);
     const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -185,7 +199,8 @@
       const btn = isFav
         ? `<button class="remove-fav-btn" data-remove="${esc(g.id)}">✕</button>`
         : `<button class="star-btn ${starred ? 'starred' : 'unstarred'}" data-id="${esc(g.id)}">${starred ? '★' : '☆'}</button>`;
-      return `<a class="game-card" href="games/${esc(g.id)}/index.html">
+      return `<a class="game-card" href="games/${esc(g.id)}/">
+        ${g.new ? '<span class="badge-new">NEW</span>' : ''}
         <img src="${esc(g.img)}" loading="lazy" referrerpolicy="no-referrer" alt="${esc(g.title)}" onerror="this.style.visibility='hidden'"/>
         <div class="game-info">
           <div class="game-tag">${esc(g.category)}</div>
@@ -242,7 +257,7 @@
       games.forEach(g => counts[g.category] = (counts[g.category] || 0) + 1);
       const cats = ['All', ...Object.keys(counts).sort()];
       $('catBar').innerHTML = cats.map(c =>
-        `<button class="cat-btn" data-cat="${esc(c)}">${esc(c)}<small>${c === 'All' ? games.length : counts[c]}</small></button>`).join('');
+        `<button class="cat-btn" data-cat="${esc(c)}">${esc(c)}<small>${c === 'All' ? games.length : counts[c]}</small></button>`).join('') + '<button class="cat-btn rand" data-rand="1">🎲 Random</button>';
     }
 
     function renderCats() {
@@ -259,12 +274,18 @@
       $('favoritesSection').classList.toggle('has-favorites', favGames.length > 0);
     }
 
+    function renderPopular() {
+      const pop = games.filter(g => g.popular);
+      $('popularGrid').innerHTML = pop.map(g => cardHTML(g, false)).join('');
+      $('popularSection').classList.toggle('has-favorites', pop.length > 0);
+    }
+
     function toggleFav(id) {
       let favs = getFavs();
       favs = favs.includes(id) ? favs.filter(f => f !== id) : [...favs, id];
       saveFavs(favs);
       renderFavorites();
-      document.querySelectorAll('#gamesGrid .star-btn').forEach(b => {
+      document.querySelectorAll('.star-btn').forEach(b => {
         const on = favs.includes(b.dataset.id);
         b.classList.toggle('starred', on);
         b.classList.toggle('unstarred', !on);
@@ -275,8 +296,12 @@
     document.addEventListener('click', e => {
       const star = e.target.closest('.star-btn');
       const rem = e.target.closest('.remove-fav-btn');
-      const cat = e.target.closest('.cat-btn');
-      if (star || rem) {
+      const cat = e.target.closest('.cat-btn:not(.rand)');
+      const rnd = e.target.closest('[data-rand]');
+      if (rnd) {
+        const g = games[Math.floor(Math.random() * games.length)];
+        location.href = 'games/' + g.id + '/';
+      } else if (star || rem) {
         e.preventDefault(); e.stopPropagation();
         toggleFav((star || rem).dataset.id || rem.dataset.remove);
       } else if (cat) {
@@ -287,7 +312,8 @@
 
     fetch('games.json', { cache: 'no-cache' })
       .then(r => r.json())
-      .then(data => { games = data; buildCats(); render(); renderFavorites(); })
+      .then(data => { games = data.filter(g => !g.hidden); buildCats(); render(); renderFavorites(); renderPopular();
+        if (REQUEST_URL) $('reqLink').innerHTML = ' &nbsp;·&nbsp; <a href="' + REQUEST_URL + '" target="_blank" rel="noopener">Request a game</a>'; })
       .catch(() => { $('noResults').textContent = 'Could not load games.json'; $('noResults').style.display = 'block'; });
 
     // Keep the tab title from being changed by other scripts

@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://playgeckogames.github.io/sitemap.xml

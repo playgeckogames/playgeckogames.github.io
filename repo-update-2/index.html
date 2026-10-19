@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DG1T71NNRN"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DG1T71NNRN');
+  </script>
+  <meta name="google-adsense-account" content="ca-pub-2146969144911434">
+
+  <title>GeckoGames — Free Online Games</title>
+  <link rel="manifest" href="/manifest.webmanifest"/>
+  <link rel="apple-touch-icon" href="/icon-192.png"/>
+  <meta name="theme-color" content="#0a0a0f"/>
+  <script src="/config.js"></script>
+  <link rel="icon" type="image/png" href="https://playgeckogames.github.io/images/favicon.png" />
+
+  <meta property="og:title" content="GeckoGames — Free Online Games" />
+  <meta property="og:description" content="No downloads. No signups. Play the best free online games directly in your school browser." />
+  <meta property="og:image" content="https://playgeckogames.github.io/images/preview-banner.png" />
+  <meta property="og:url" content="https://playgeckogames.github.io" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root { --bg:#0a0a0f; --surface:#12121a; --card:#1a1a26; --accent:#f0e040; --accent2:#ff3c6e; --accent3:#3cf0c8; --text:#e8e8f0; --border:#2a2a3a; }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background:var(--bg); color:var(--text); font-family:'Space Mono',monospace; min-height:100vh; overflow-x:hidden; }
+    header { border-bottom:2px solid var(--accent); padding:0 2rem; display:flex; align-items:center; justify-content:space-between; height:70px; position:sticky; top:0; background:var(--bg); z-index:100; }
+    .logo { font-family:'Bebas Neue',sans-serif; font-size:2rem; letter-spacing:4px; color:var(--accent); text-shadow:0 0 20px rgba(240,224,64,0.5); }
+    .logo span { color:var(--accent2); }
+    nav a { color:var(--text); text-decoration:none; font-size:0.7rem; letter-spacing:2px; text-transform:uppercase; margin-left:2rem; transition:color 0.2s; }
+    nav a:hover { color:var(--accent); }
+    .ad-banner { background:var(--surface); border-bottom:1px solid var(--border); padding:0.6rem 2rem; text-align:center; }
+    .ad-placeholder { background:var(--surface); border:1px dashed var(--border); border-radius:4px; display:flex; align-items:center; justify-content:center; color:#444466; font-size:0.65rem; letter-spacing:2px; text-transform:uppercase; }
+    .hero { padding:4rem 2rem 3rem; text-align:center; }
+    .hero-label { font-size:0.65rem; letter-spacing:4px; color:var(--accent3); text-transform:uppercase; margin-bottom:1rem; }
+    .hero h1 { font-family:'Bebas Neue',sans-serif; font-size:clamp(3rem,10vw,7rem); letter-spacing:8px; line-height:1; color:var(--text); text-shadow:4px 4px 0 var(--accent2), 8px 8px 0 rgba(255,60,110,0.2); animation:glitch 6s infinite; }
+    @keyframes glitch {
+      0%,92%,100% { text-shadow:4px 4px 0 var(--accent2), 8px 8px 0 rgba(255,60,110,0.2); }
+      93% { text-shadow:-4px 4px 0 var(--accent3), 4px -4px 0 var(--accent2); transform:translateX(2px); }
+      94% { text-shadow:4px -4px 0 var(--accent2), -4px 4px 0 var(--accent3); transform:translateX(-2px); }
+      95% { text-shadow:4px 4px 0 var(--accent2); transform:translateX(0); }
+    }
+    .hero p { margin-top:1.5rem; color:#8888aa; font-size:0.75rem; letter-spacing:2px; }
+    .main-layout { display:grid; grid-template-columns:1fr 160px; gap:2rem; padding:0 2rem 4rem; max-width:1200px; margin:0 auto; }
+    @media (max-width:768px) { .main-layout { grid-template-columns:1fr; } .sidebar { display:none; } }
+    .games-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:1.5rem; }
+    .game-card { position:relative; background:var(--card); border:1px solid var(--border); border-radius:4px; overflow:hidden; cursor:pointer; transition:transform 0.2s, border-color 0.2s, box-shadow 0.2s; text-decoration:none; display:block; }
+    .game-card:hover { transform:translateY(-4px); border-color:var(--accent); box-shadow:0 8px 30px rgba(240,224,64,0.15); }
+    .game-card img { width:100%; aspect-ratio:16/9; object-fit:cover; display:block; background:var(--surface); }
+    .game-info { padding:1rem; }
+    .game-tag { font-size:0.6rem; letter-spacing:2px; text-transform:uppercase; color:var(--accent3); margin-bottom:0.4rem; }
+    .game-title { font-family:'Bebas Neue',sans-serif; font-size:1.3rem; letter-spacing:2px; color:var(--text); margin-bottom:0.4rem; }
+    .game-desc { font-size:0.65rem; color:#8888aa; line-height:1.6; }
+    .play-btn { display:inline-block; margin-top:0.8rem; background:var(--accent); color:var(--bg); font-family:'Space Mono',monospace; font-size:0.65rem; font-weight:700; letter-spacing:2px; text-transform:uppercase; padding:0.4rem 0.9rem; border-radius:2px; text-decoration:none; transition:background 0.2s; }
+    .play-btn:hover { background:var(--accent2); color:#fff; }
+    .sidebar { display:flex; flex-direction:column; gap:1rem; padding-top:2rem; }
+    .tag2 { display:inline-block; margin-left:6px; background:var(--accent2); color:#fff; padding:1px 6px; border-radius:3px; font-size:0.5rem; letter-spacing:1px; }
+    .stats-bar { max-width:1200px; margin:0 auto; padding:0 2rem 1.5rem; text-align:center; font-size:0.7rem; letter-spacing:2px; color:#8888aa; }
+    .stats-bar b { color:var(--accent); }
+    .gotd { display:none; max-width:1200px; margin:0 auto 2rem; padding:0 2rem; }
+    .gotd.show { display:block; }
+    .gotd a { display:flex; background:var(--card); border:1px solid var(--accent); border-radius:4px; overflow:hidden; text-decoration:none; color:var(--text); box-shadow:0 0 30px rgba(240,224,64,0.12); }
+    .gotd img { width:42%; aspect-ratio:16/9; object-fit:cover; display:block; }
+    .gotd-info { padding:1.2rem 1.5rem; display:flex; flex-direction:column; justify-content:center; align-items:flex-start; }
+    .gotd-label { font-size:0.6rem; letter-spacing:3px; color:var(--accent3); margin-bottom:0.4rem; }
+    .gotd-title { font-family:'Bebas Neue',sans-serif; font-size:2.2rem; letter-spacing:3px; margin-bottom:0.4rem; }
+    @media (max-width:768px) { .gotd a { flex-direction:column; } .gotd img { width:100%; } }
+    .logo::before { content:''; display:inline-block; width:1.1em; height:1.1em; margin-right:0.35rem; vertical-align:-0.12em; background:url(/mascot.svg) center/contain no-repeat; }
+    .see-all { margin-top:1rem; }
+    .sidebar .ad-placeholder { position:sticky; top:90px; }
+    .section-title { font-family:'Bebas Neue',sans-serif; font-size:1.5rem; letter-spacing:4px; color:var(--text); margin-bottom:1.5rem; padding-bottom:0.5rem; border-bottom:1px solid var(--border); }
+    .section-title span { color:var(--accent); }
+    footer { border-top:1px solid var(--border); padding:2rem; text-align:center; font-size:0.65rem; color:#444466; letter-spacing:2px; }
+    footer a { color:#666688; text-decoration:none; }
+    footer a:hover { color:var(--accent); }
+
+    /* Search */
+    .search-bar { width:100%; background:var(--card); border:1px solid var(--border); border-radius:4px; padding:0.8rem 1.2rem; color:var(--text); font-family:'Space Mono',monospace; font-size:0.75rem; letter-spacing:2px; outline:none; transition:border-color 0.2s; margin-bottom:1rem; }
+    .search-bar::placeholder { color:#444466; }
+    .search-bar:focus { border-color:var(--accent); }
+    .no-results { display:none; color:#444466; font-size:0.7rem; letter-spacing:2px; text-transform:uppercase; padding:2rem 0; }
+
+    /* Category filters */
+    .cat-bar { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:1.5rem; }
+    .cat-btn { background:var(--card); border:1px solid var(--border); color:var(--text); font-family:'Space Mono',monospace; font-size:0.6rem; letter-spacing:2px; text-transform:uppercase; padding:0.45rem 0.8rem; border-radius:3px; cursor:pointer; transition:background 0.15s, border-color 0.15s, color 0.15s; }
+    .cat-btn:hover { border-color:var(--accent); color:var(--accent); }
+    .cat-btn.active { background:var(--accent); border-color:var(--accent); color:var(--bg); }
+    .cat-btn small { opacity:0.6; margin-left:4px; font-size:0.55rem; }
+
+    /* Favorites */
+    .favorites-section { display:none; max-width:1200px; margin:0 auto; padding:0 2rem 2rem; }
+    .favorites-section.has-favorites { display:block; }
+    #favoritesGrid { display:grid; grid-template-columns:repeat(4,215px); gap:1rem; }
+    #favoritesGrid .game-card { font-size:0.8em; }
+    #favoritesGrid .game-info { padding:0.6rem; }
+    #favoritesGrid .game-title { font-size:1rem; }
+    #favoritesGrid .game-desc { display:none; }
+    #favoritesGrid .play-btn { padding:0.3rem 0.6rem; font-size:0.6rem; }
+    .star-btn { position:absolute; bottom:8px; right:8px; background:none; border:none; font-size:1.4rem; cursor:pointer; line-height:1; transition:transform 0.2s; z-index:10; }
+    .star-btn:hover { transform:scale(1.3); }
+    .star-btn.starred { color:var(--accent); }
+    .star-btn.unstarred { color:#444466; }
+    .remove-fav-btn { position:absolute; top:6px; right:6px; background:var(--accent2); border:none; color:#fff; font-size:0.75rem; width:24px; height:24px; border-radius:50%; cursor:pointer; z-index:10; display:flex; align-items:center; justify-content:center; opacity:0; transition:opacity 0.2s; line-height:1; padding:0; }
+    .remove-fav-btn:hover { background:#cc2255; }
+    #favoritesGrid .game-card:hover .remove-fav-btn { opacity:1; }
+    #popularGrid { display:grid; grid-template-columns:repeat(4,215px); gap:1rem; }
+    #popularGrid .game-card { font-size:0.8em; }
+    #popularGrid .game-info { padding:0.6rem; }
+    #popularGrid .game-title { font-size:1rem; }
+    #popularGrid .game-desc { display:none; }
+    #popularGrid .play-btn { padding:0.3rem 0.6rem; font-size:0.6rem; }
+    #recentGrid { display:grid; grid-template-columns:repeat(4,215px); gap:1rem; }
+    #recentGrid .game-card { font-size:0.8em; }
+    #recentGrid .game-info { padding:0.6rem; }
+    #recentGrid .game-title { font-size:1rem; }
+    #recentGrid .game-desc { display:none; }
+    #recentGrid .play-btn { padding:0.3rem 0.6rem; font-size:0.6rem; }
+    #friendGrid { display:grid; grid-template-columns:repeat(4,215px); gap:1rem; }
+    #friendGrid .game-card { font-size:0.8em; }
+    #friendGrid .game-info { padding:0.6rem; }
+    #friendGrid .game-title { font-size:1rem; }
+    #friendGrid .game-desc { display:none; }
+    #friendGrid .play-btn { padding:0.3rem 0.6rem; font-size:0.6rem; }
+    .badge-new { position:absolute; top:8px; left:8px; z-index:5; background:var(--accent2); color:#fff; font-size:0.55rem; font-weight:700; letter-spacing:2px; padding:0.2rem 0.5rem; border-radius:3px; }
+    .cat-btn.rand { border-color:var(--accent3); color:var(--accent3); }
+
+    /* Pagination */
+    .pagination { display:flex; align-items:center; justify-content:center; gap:6px; margin:2rem 0 1rem; flex-wrap:wrap; }
+    .pagination button { background:var(--card); border:1px solid var(--border); color:var(--text); font-family:'Space Mono',monospace; font-size:0.65rem; font-weight:700; letter-spacing:1px; padding:0.45rem 0.85rem; border-radius:3px; cursor:pointer; transition:background 0.15s, border-color 0.15s, color 0.15s; }
+    .pagination button:hover:not(:disabled) { border-color:var(--accent); color:var(--accent); }
+    .pagination button.active { background:var(--accent); border-color:var(--accent); color:var(--bg); }
+    .pagination button:disabled { opacity:0.3; cursor:not-allowed; }
+    .page-info { font-size:0.6rem; letter-spacing:2px; color:#444466; text-transform:uppercase; text-align:center; margin-bottom:1.5rem; }
+    @media (max-width:980px) { #favoritesGrid, #popularGrid, #recentGrid, #friendGrid { grid-template-columns:repeat(auto-fill,minmax(170px,1fr)); } }
+    @media (max-width:768px) { #favoritesGrid, #popularGrid, #recentGrid, #friendGrid { grid-template-columns:repeat(2,1fr); } }
+  </style>
+</head>
+<body>
+
+  <div class="ad-banner">
+    <div class="ad-placeholder" style="height:90px; max-width:728px; margin:0 auto;"><script>
+  atOptions = {
+    'key' : '5035358a8bd65375379bbb9f7227994d',
+    'format' : 'iframe',
+    'height' : 90,
+    'width' : 728,
+    'params' : {}
+  };
+</script>
+<script src="https://www.highperformanceformat.com/5035358a8bd65375379bbb9f7227994d/invoke.js"></script>
+</div>
+  </div>
+
+  <header>
+    <div class="logo">GECKO<span>GAMES</span></div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="#sports">Games</a>
+    </nav>
+  </header>
+
+  <div class="hero">
+    <div class="hero-label">// Free Online Games //</div>
+    <h1>PLAY NOW</h1>
+    <p>No downloads. No signups. Just games.</p>
+  </div>
+
+  <div class="stats-bar" id="statsBar"></div>
+  <div class="gotd" id="gotd"></div>
+
+  <div class="favorites-section" id="recentSection">
+    <div class="section-title">▶ CONTINUE <span>PLAYING</span></div>
+    <div id="recentGrid"></div>
+  </div>
+
+  <div class="favorites-section" id="favoritesSection">
+    <div class="section-title">⭐ FAVORITE <span>GAMES</span></div>
+    <div id="favoritesGrid"></div>
+  </div>
+
+  <div class="favorites-section" id="popularSection">
+    <div class="section-title">🔥 POPULAR <span>GAMES</span></div>
+    <div id="popularGrid"></div>
+  </div>
+
+  <div class="main-layout">
+    <div>
+      <input class="search-bar" type="text" id="searchBar" placeholder="🔍 SEARCH GAMES..." oninput="searchGames()"/>
+      <div class="cat-bar" id="catBar"></div>
+      <div class="no-results" id="noResults">NO GAMES FOUND</div>
+      <div class="section-title" id="sports">FEATURED <span>GAMES</span></div>
+
+      <div class="page-info" id="pageInfo"></div>
+      <div class="games-grid" id="gamesGrid"></div>
+      <div class="pagination" id="pagination"></div>
+    </div>
+
+    <div class="sidebar">
+      <div class="ad-placeholder" style="width:160px; height:600px;"><script>
+  atOptions = {
+    'key' : 'feb800c53eb22be3eb56b84f3d25d762',
+    'format' : 'iframe',
+    'height' : 600,
+    'width' : 160,
+    'params' : {}
+  };
+</script>
+<script src="https://www.highperformanceformat.com/feb800c53eb22be3eb56b84f3d25d762/invoke.js"></script>
+</div>
+    </div>
+  </div>
+
+  <div class="favorites-section" id="friendSection">
+    <div class="section-title">👥 PLAY WITH A <span>FRIEND</span></div>
+    <div id="friendGrid"></div>
+    <button class="cat-btn see-all" data-cat="2 Player" data-scroll="1">See all 2 Player games →</button>
+  </div>
+
+  <footer>
+    <p>© 2026 GECKOGAMES &nbsp;·&nbsp; <a href="/privacy-policy/">Privacy Policy</a> &nbsp;·&nbsp; <a href="/contact/">Contact</a><span id="reqLink"></span></p>
+    <p style="margin-top:0.8rem" id="collLinks"></p>
+  </footer>
+
+  <script>
+    /* Games come from games.json. To add a game, add one line there. */
+    const PER_PAGE = 30;
+    const FAV_KEY = 'geckoFavorites';
+    const CFG = window.GECKO || {};
+    const TWO = CFG.twoPlayer || [];
+    let games = [], activeCat = 'All', page = 1;
+    const $ = id => document.getElementById(id);
+    const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+    function getFavs() { try { return JSON.parse(localStorage.getItem(FAV_KEY) || '[]'); } catch (e) { return []; } }
+    function saveFavs(f) { try { localStorage.setItem(FAV_KEY, JSON.stringify(f)); } catch (e) {} }
+
+    function cardHTML(g, isFav) {
+      const starred = getFavs().includes(g.id);
+      const btn = isFav
+        ? `<button class="remove-fav-btn" data-remove="${esc(g.id)}">✕</button>`
+        : `<button class="star-btn ${starred ? 'starred' : 'unstarred'}" data-id="${esc(g.id)}">${starred ? '★' : '☆'}</button>`;
+      return `<a class="game-card" href="games/${esc(g.id)}/">
+        ${g.new ? '<span class="badge-new">NEW</span>' : ''}
+        <img src="${esc(g.img)}" loading="lazy" referrerpolicy="no-referrer" alt="${esc(g.title)}" onerror="this.style.visibility='hidden'"/>
+        <div class="game-info">
+          <div class="game-tag">${esc(g.category)}${g.tags.map(t => ` <span class="tag2">${esc(t)}</span>`).join('')}</div>
+          <div class="game-title">${esc(g.title)}</div>
+          <div class="game-desc">${esc(g.desc)}</div>
+          <span class="play-btn">▶ Play</span>
+          ${isFav ? '' : btn}
+        </div>${isFav ? btn : ''}
+      </a>`;
+    }
+
+    function query() { return $('searchBar').value.toLowerCase().trim(); }
+
+    function filtered() {
+      const q = query();
+      if (q) return games.filter(g => (g.title + ' ' + g.category + ' ' + g.tags.join(' ') + ' ' + g.desc).toLowerCase().includes(q));
+      return activeCat === 'All' ? games : games.filter(g => g.category === activeCat || g.tags.includes(activeCat));
+    }
+
+    function render() {
+      const q = query();
+      const list = filtered();
+      const pages = Math.max(1, Math.ceil(list.length / PER_PAGE));
+      if (page > pages) page = pages;
+      const shown = q ? list : list.slice((page - 1) * PER_PAGE, page * PER_PAGE);
+      $('gamesGrid').innerHTML = shown.map(g => cardHTML(g, false)).join('');
+      $('noResults').style.display = list.length === 0 ? 'block' : 'none';
+      $('pagination').style.display = $('pageInfo').style.display = (q || pages <= 1) ? 'none' : '';
+      if (!q && pages > 1) {
+        $('pageInfo').textContent = `Showing ${(page-1)*PER_PAGE+1}–${Math.min(page*PER_PAGE, list.length)} of ${list.length} games  ·  Page ${page} of ${pages}`;
+        renderPagination(pages);
+      }
+      renderCats();
+    }
+
+    function renderPagination(pages) {
+      const pg = $('pagination');
+      pg.innerHTML = '';
+      const add = (label, p, disabled, active) => {
+        const b = document.createElement('button');
+        b.textContent = label;
+        b.disabled = !!disabled;
+        if (active) b.classList.add('active');
+        b.onclick = () => { page = p; render(); $('sports').scrollIntoView({ behavior: 'smooth', block: 'start' }); };
+        pg.appendChild(b);
+      };
+      add('← Prev', page - 1, page === 1);
+      for (let i = 1; i <= pages; i++) add(i, i, false, i === page);
+      add('Next →', page + 1, page === pages);
+    }
+
+    function buildCats() {
+      const counts = {};
+      games.forEach(g => [g.category, ...g.tags].forEach(c => counts[c] = (counts[c] || 0) + 1));
+      const cats = ['All', ...Object.keys(counts).sort()];
+      $('catBar').innerHTML = cats.map(c =>
+        `<button class="cat-btn" data-cat="${esc(c)}">${esc(c)}<small>${c === 'All' ? games.length : counts[c]}</small></button>`).join('') + '<button class="cat-btn rand" data-rand="1">🎲 Random</button>';
+    }
+
+    function renderCats() {
+      const q = query();
+      document.querySelectorAll('.cat-btn').forEach(b =>
+        b.classList.toggle('active', !q && b.dataset.cat === activeCat));
+    }
+
+    function searchGames() { page = 1; render(); }
+
+    function renderFavorites() {
+      const favGames = getFavs().map(id => games.find(g => g.id === id)).filter(Boolean);
+      $('favoritesGrid').innerHTML = favGames.map(g => cardHTML(g, true)).join('');
+      $('favoritesSection').classList.toggle('has-favorites', favGames.length > 0);
+    }
+
+    function renderPopular() {
+      const pop = games.filter(g => g.popular);
+      $('popularGrid').innerHTML = pop.map(g => cardHTML(g, false)).join('');
+      $('popularSection').classList.toggle('has-favorites', pop.length > 0);
+    }
+
+    function normalize(g) {
+      g.tags = Array.isArray(g.tags) ? g.tags.slice() : [];
+      if (g.category === '2 Player') { g.category = 'Action'; if (!g.tags.includes('2 Player')) g.tags.push('2 Player'); }
+      if (TWO.includes(g.id) && !g.tags.includes('2 Player')) g.tags.push('2 Player');
+      return g;
+    }
+
+    function renderRecent() {
+      let ids = [];
+      try { ids = JSON.parse(localStorage.getItem('geckoRecent') || '[]'); } catch (e) {}
+      const list = ids.map(id => games.find(g => g.id === id)).filter(Boolean).slice(0, 4);
+      $('recentGrid').innerHTML = list.map(g => cardHTML(g, false)).join('');
+      $('recentSection').classList.toggle('has-favorites', list.length > 0);
+    }
+
+    function renderGotd() {
+      if (!games.length) return;
+      const g = games[Math.floor(Date.now() / 864e5) % games.length];
+      $('gotd').innerHTML = `<a href="games/${esc(g.id)}/"><img src="${esc(g.img)}" referrerpolicy="no-referrer" alt="${esc(g.title)}" onerror="this.style.visibility='hidden'"/><div class="gotd-info"><div class="gotd-label">🎯 GAME OF THE DAY</div><div class="gotd-title">${esc(g.title)}</div><div class="game-desc">${esc(g.desc)}</div><span class="play-btn">▶ Play</span></div></a>`;
+      $('gotd').classList.add('show');
+    }
+
+    const BADGES = [[1, '🥚', 'First game'], [5, '🦎', '5 games'], [10, '🔥', '10 games'], [25, '⭐', '25 games'], [50, '👑', '50 games']];
+    function renderStats() {
+      let s = { xp: 0, played: [] };
+      try { s = JSON.parse(localStorage.getItem('geckoStats') || '') || s; } catch (e) {}
+      const n = s.played.length;
+      $('statsBar').innerHTML = s.xp
+        ? `🦎 LEVEL <b>${Math.floor(s.xp / 100) + 1}</b> · <b>${s.xp}</b> XP · ${n} GAMES TRIED ` + BADGES.filter(b => n >= b[0]).map(b => `<span title="${b[2]}">${b[1]}</span>`).join(' ')
+        : '🦎 PLAY A GAME TO START EARNING XP AND BADGES';
+    }
+
+    function renderFriends() {
+      const two = games.filter(g => g.tags.includes('2 Player'));
+      const r = two.length ? Math.floor(Date.now() / 864e5) % two.length : 0;
+      const list = two.slice(r).concat(two.slice(0, r)).slice(0, 4);
+      $('friendGrid').innerHTML = list.map(g => cardHTML(g, false)).join('');
+      $('friendSection').classList.toggle('has-favorites', list.length > 0);
+    }
+
+    function renderLinks() {
+      let h = '';
+      if (CFG.requestUrl) h += ' &nbsp;·&nbsp; <a href="' + esc(CFG.requestUrl) + '" target="_blank" rel="noopener">Request a game</a>';
+      if (CFG.discordUrl) h += ' &nbsp;·&nbsp; <a href="' + esc(CFG.discordUrl) + '" target="_blank" rel="noopener">Discord</a>';
+      $('reqLink').innerHTML = h;
+      $('collLinks').innerHTML = ['2 Player', 'Sports', 'Racing', 'Action', 'Horror', 'Idle'].map(c =>
+        `<a href="/best/${c.toLowerCase().replace(/ /g, '-')}-games/">Best ${esc(c)} Games</a>`).join(' &nbsp;·&nbsp; ');
+    }
+
+    function toggleFav(id) {
+      let favs = getFavs();
+      favs = favs.includes(id) ? favs.filter(f => f !== id) : [...favs, id];
+      saveFavs(favs);
+      renderFavorites();
+      document.querySelectorAll('.star-btn').forEach(b => {
+        const on = favs.includes(b.dataset.id);
+        b.classList.toggle('starred', on);
+        b.classList.toggle('unstarred', !on);
+        b.textContent = on ? '★' : '☆';
+      });
+    }
+
+    document.addEventListener('click', e => {
+      const star = e.target.closest('.star-btn');
+      const rem = e.target.closest('.remove-fav-btn');
+      const cat = e.target.closest('.cat-btn:not(.rand)');
+      const rnd = e.target.closest('[data-rand]');
+      if (rnd) {
+        const g = games[Math.floor(Math.random() * games.length)];
+        location.href = 'games/' + g.id + '/';
+      } else if (star || rem) {
+        e.preventDefault(); e.stopPropagation();
+        toggleFav((star || rem).dataset.id || rem.dataset.remove);
+      } else if (cat) {
+        $('searchBar').value = '';
+        activeCat = cat.dataset.cat; page = 1; render();
+        if (cat.dataset.scroll) $('sports').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+
+    fetch('games.json', { cache: 'no-cache' })
+      .then(r => r.json())
+      .then(data => { games = data.filter(g => !g.hidden).map(normalize); buildCats(); render(); renderFavorites(); renderPopular(); renderRecent(); renderGotd(); renderStats(); renderFriends(); renderLinks(); })
+      .catch(() => { $('noResults').textContent = 'Could not load games.json'; $('noResults').style.display = 'block'; });
+
+    if ('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js').catch(() => {});
+
+    // Keep the tab title from being changed by other scripts
+    (function() {
+      const t = "GeckoGames — Free Online Games";
+      document.title = t;
+      Object.defineProperty(document, 'title', { get: () => t, set: () => t, configurable: false });
+    })();
+  </script>
+
+  <script src="https://pl30178962.effectivecpmnetwork.com/49/b9/ab/49b9abad5358c398fa2e5da9995bc443.js"></script>
+
+</body>
+</html>

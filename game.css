@@ -40,3 +40,4 @@ header{border-bottom:2px solid var(--accent);padding:0 2rem;display:flex;align-i
 footer{border-top:1px solid var(--border);padding:2rem;text-align:center;font-size:.65rem;color:#444466;letter-spacing:2px}
 footer a{color:#666688;text-decoration:none}
 footer a:hover{color:var(--accent)}
+.sidebar .ad-placeholder{position:sticky;top:20px}

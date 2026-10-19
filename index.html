@@ -14,6 +14,10 @@
   <meta name="google-adsense-account" content="ca-pub-2146969144911434">
 
   <title>GeckoGames — Free Online Games</title>
+  <link rel="manifest" href="/manifest.webmanifest"/>
+  <link rel="apple-touch-icon" href="/icon-192.png"/>
+  <meta name="theme-color" content="#0a0a0f"/>
+  <script src="/config.js"></script>
   <link rel="icon" type="image/png" href="https://playgeckogames.github.io/images/favicon.png" />
 
   <meta property="og:title" content="GeckoGames — Free Online Games" />
@@ -58,7 +62,19 @@
     .play-btn { display:inline-block; margin-top:0.8rem; background:var(--accent); color:var(--bg); font-family:'Space Mono',monospace; font-size:0.65rem; font-weight:700; letter-spacing:2px; text-transform:uppercase; padding:0.4rem 0.9rem; border-radius:2px; text-decoration:none; transition:background 0.2s; }
     .play-btn:hover { background:var(--accent2); color:#fff; }
     .sidebar { display:flex; flex-direction:column; gap:1rem; padding-top:2rem; }
-    @media (max-width:768px) { #favoritesGrid, #popularGrid { grid-template-columns:repeat(2,1fr); } }
+    .tag2 { display:inline-block; margin-left:6px; background:var(--accent2); color:#fff; padding:1px 6px; border-radius:3px; font-size:0.5rem; letter-spacing:1px; }
+    .stats-bar { max-width:1200px; margin:0 auto; padding:0 2rem 1.5rem; text-align:center; font-size:0.7rem; letter-spacing:2px; color:#8888aa; }
+    .stats-bar b { color:var(--accent); }
+    .gotd { display:none; max-width:1200px; margin:0 auto 2rem; padding:0 2rem; }
+    .gotd.show { display:block; }
+    .gotd a { display:flex; background:var(--card); border:1px solid var(--accent); border-radius:4px; overflow:hidden; text-decoration:none; color:var(--text); box-shadow:0 0 30px rgba(240,224,64,0.12); }
+    .gotd img { width:42%; aspect-ratio:16/9; object-fit:cover; display:block; }
+    .gotd-info { padding:1.2rem 1.5rem; display:flex; flex-direction:column; justify-content:center; align-items:flex-start; }
+    .gotd-label { font-size:0.6rem; letter-spacing:3px; color:var(--accent3); margin-bottom:0.4rem; }
+    .gotd-title { font-family:'Bebas Neue',sans-serif; font-size:2.2rem; letter-spacing:3px; margin-bottom:0.4rem; }
+    @media (max-width:768px) { .gotd a { flex-direction:column; } .gotd img { width:100%; } }
+    .logo::before { content:''; display:inline-block; width:1.1em; height:1.1em; margin-right:0.35rem; vertical-align:-0.12em; background:url(/mascot.svg) center/contain no-repeat; }
+    .see-all { margin-top:1rem; }
     .sidebar .ad-placeholder { position:sticky; top:90px; }
     .section-title { font-family:'Bebas Neue',sans-serif; font-size:1.5rem; letter-spacing:4px; color:var(--text); margin-bottom:1.5rem; padding-bottom:0.5rem; border-bottom:1px solid var(--border); }
     .section-title span { color:var(--accent); }
@@ -82,7 +98,7 @@
     /* Favorites */
     .favorites-section { display:none; max-width:1200px; margin:0 auto; padding:0 2rem 2rem; }
     .favorites-section.has-favorites { display:block; }
-    #favoritesGrid { display:grid; grid-template-columns:repeat(4,1fr); gap:1rem; }
+    #favoritesGrid { display:grid; grid-template-columns:repeat(4,215px); gap:1rem; }
     #favoritesGrid .game-card { font-size:0.8em; }
     #favoritesGrid .game-info { padding:0.6rem; }
     #favoritesGrid .game-title { font-size:1rem; }
@@ -95,12 +111,24 @@
     .remove-fav-btn { position:absolute; top:6px; right:6px; background:var(--accent2); border:none; color:#fff; font-size:0.75rem; width:24px; height:24px; border-radius:50%; cursor:pointer; z-index:10; display:flex; align-items:center; justify-content:center; opacity:0; transition:opacity 0.2s; line-height:1; padding:0; }
     .remove-fav-btn:hover { background:#cc2255; }
     #favoritesGrid .game-card:hover .remove-fav-btn { opacity:1; }
-    #popularGrid { display:grid; grid-template-columns:repeat(4,1fr); gap:1rem; }
+    #popularGrid { display:grid; grid-template-columns:repeat(4,215px); gap:1rem; }
     #popularGrid .game-card { font-size:0.8em; }
     #popularGrid .game-info { padding:0.6rem; }
     #popularGrid .game-title { font-size:1rem; }
     #popularGrid .game-desc { display:none; }
     #popularGrid .play-btn { padding:0.3rem 0.6rem; font-size:0.6rem; }
+    #recentGrid { display:grid; grid-template-columns:repeat(4,215px); gap:1rem; }
+    #recentGrid .game-card { font-size:0.8em; }
+    #recentGrid .game-info { padding:0.6rem; }
+    #recentGrid .game-title { font-size:1rem; }
+    #recentGrid .game-desc { display:none; }
+    #recentGrid .play-btn { padding:0.3rem 0.6rem; font-size:0.6rem; }
+    #friendGrid { display:grid; grid-template-columns:repeat(4,215px); gap:1rem; }
+    #friendGrid .game-card { font-size:0.8em; }
+    #friendGrid .game-info { padding:0.6rem; }
+    #friendGrid .game-title { font-size:1rem; }
+    #friendGrid .game-desc { display:none; }
+    #friendGrid .play-btn { padding:0.3rem 0.6rem; font-size:0.6rem; }
     .badge-new { position:absolute; top:8px; left:8px; z-index:5; background:var(--accent2); color:#fff; font-size:0.55rem; font-weight:700; letter-spacing:2px; padding:0.2rem 0.5rem; border-radius:3px; }
     .cat-btn.rand { border-color:var(--accent3); color:var(--accent3); }
 
@@ -111,6 +139,8 @@
     .pagination button.active { background:var(--accent); border-color:var(--accent); color:var(--bg); }
     .pagination button:disabled { opacity:0.3; cursor:not-allowed; }
     .page-info { font-size:0.6rem; letter-spacing:2px; color:#444466; text-transform:uppercase; text-align:center; margin-bottom:1.5rem; }
+    @media (max-width:980px) { #favoritesGrid, #popularGrid, #recentGrid, #friendGrid { grid-template-columns:repeat(auto-fill,minmax(170px,1fr)); } }
+    @media (max-width:768px) { #favoritesGrid, #popularGrid, #recentGrid, #friendGrid { grid-template-columns:repeat(2,1fr); } }
   </style>
 </head>
 <body>
@@ -141,6 +171,14 @@
     <div class="hero-label">// Free Online Games //</div>
     <h1>PLAY NOW</h1>
     <p>No downloads. No signups. Just games.</p>
+  </div>
+
+  <div class="stats-bar" id="statsBar"></div>
+  <div class="gotd" id="gotd"></div>
+
+  <div class="favorites-section" id="recentSection">
+    <div class="section-title">▶ CONTINUE <span>PLAYING</span></div>
+    <div id="recentGrid"></div>
   </div>
 
   <div class="favorites-section" id="favoritesSection">
@@ -180,15 +218,23 @@
     </div>
   </div>
 
+  <div class="favorites-section" id="friendSection">
+    <div class="section-title">👥 PLAY WITH A <span>FRIEND</span></div>
+    <div id="friendGrid"></div>
+    <button class="cat-btn see-all" data-cat="2 Player" data-scroll="1">See all 2 Player games →</button>
+  </div>
+
   <footer>
     <p>© 2026 GECKOGAMES &nbsp;·&nbsp; <a href="/privacy-policy/">Privacy Policy</a> &nbsp;·&nbsp; <a href="/contact/">Contact</a><span id="reqLink"></span></p>
+    <p style="margin-top:0.8rem" id="collLinks"></p>
   </footer>
 
   <script>
     /* Games come from games.json. To add a game, add one line there. */
     const PER_PAGE = 30;
     const FAV_KEY = 'geckoFavorites';
-    const REQUEST_URL = ''; // paste your Google Form link between the quotes to show a "Request a game" link
+    const CFG = window.GECKO || {};
+    const TWO = CFG.twoPlayer || [];
     let games = [], activeCat = 'All', page = 1;
     const $ = id => document.getElementById(id);
     const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -205,7 +251,7 @@
         ${g.new ? '<span class="badge-new">NEW</span>' : ''}
         <img src="${esc(g.img)}" loading="lazy" referrerpolicy="no-referrer" alt="${esc(g.title)}" onerror="this.style.visibility='hidden'"/>
         <div class="game-info">
-          <div class="game-tag">${esc(g.category)}</div>
+          <div class="game-tag">${esc(g.category)}${g.tags.map(t => ` <span class="tag2">${esc(t)}</span>`).join('')}</div>
           <div class="game-title">${esc(g.title)}</div>
           <div class="game-desc">${esc(g.desc)}</div>
           <span class="play-btn">▶ Play</span>
@@ -218,8 +264,8 @@
 
     function filtered() {
       const q = query();
-      if (q) return games.filter(g => (g.title + ' ' + g.category + ' ' + g.desc).toLowerCase().includes(q));
-      return activeCat === 'All' ? games : games.filter(g => g.category === activeCat);
+      if (q) return games.filter(g => (g.title + ' ' + g.category + ' ' + g.tags.join(' ') + ' ' + g.desc).toLowerCase().includes(q));
+      return activeCat === 'All' ? games : games.filter(g => g.category === activeCat || g.tags.includes(activeCat));
     }
 
     function render() {
@@ -256,7 +302,7 @@
 
     function buildCats() {
       const counts = {};
-      games.forEach(g => counts[g.category] = (counts[g.category] || 0) + 1);
+      games.forEach(g => [g.category, ...g.tags].forEach(c => counts[c] = (counts[c] || 0) + 1));
       const cats = ['All', ...Object.keys(counts).sort()];
       $('catBar').innerHTML = cats.map(c =>
         `<button class="cat-btn" data-cat="${esc(c)}">${esc(c)}<small>${c === 'All' ? games.length : counts[c]}</small></button>`).join('') + '<button class="cat-btn rand" data-rand="1">🎲 Random</button>';
@@ -280,6 +326,55 @@
       const pop = games.filter(g => g.popular);
       $('popularGrid').innerHTML = pop.map(g => cardHTML(g, false)).join('');
       $('popularSection').classList.toggle('has-favorites', pop.length > 0);
+    }
+
+    function normalize(g) {
+      g.tags = Array.isArray(g.tags) ? g.tags.slice() : [];
+      if (g.category === '2 Player') { g.category = 'Action'; if (!g.tags.includes('2 Player')) g.tags.push('2 Player'); }
+      if (TWO.includes(g.id) && !g.tags.includes('2 Player')) g.tags.push('2 Player');
+      return g;
+    }
+
+    function renderRecent() {
+      let ids = [];
+      try { ids = JSON.parse(localStorage.getItem('geckoRecent') || '[]'); } catch (e) {}
+      const list = ids.map(id => games.find(g => g.id === id)).filter(Boolean).slice(0, 4);
+      $('recentGrid').innerHTML = list.map(g => cardHTML(g, false)).join('');
+      $('recentSection').classList.toggle('has-favorites', list.length > 0);
+    }
+
+    function renderGotd() {
+      if (!games.length) return;
+      const g = games[Math.floor(Date.now() / 864e5) % games.length];
+      $('gotd').innerHTML = `<a href="games/${esc(g.id)}/"><img src="${esc(g.img)}" referrerpolicy="no-referrer" alt="${esc(g.title)}" onerror="this.style.visibility='hidden'"/><div class="gotd-info"><div class="gotd-label">🎯 GAME OF THE DAY</div><div class="gotd-title">${esc(g.title)}</div><div class="game-desc">${esc(g.desc)}</div><span class="play-btn">▶ Play</span></div></a>`;
+      $('gotd').classList.add('show');
+    }
+
+    const BADGES = [[1, '🥚', 'First game'], [5, '🦎', '5 games'], [10, '🔥', '10 games'], [25, '⭐', '25 games'], [50, '👑', '50 games']];
+    function renderStats() {
+      let s = { xp: 0, played: [] };
+      try { s = JSON.parse(localStorage.getItem('geckoStats') || '') || s; } catch (e) {}
+      const n = s.played.length;
+      $('statsBar').innerHTML = s.xp
+        ? `🦎 LEVEL <b>${Math.floor(s.xp / 100) + 1}</b> · <b>${s.xp}</b> XP · ${n} GAMES TRIED ` + BADGES.filter(b => n >= b[0]).map(b => `<span title="${b[2]}">${b[1]}</span>`).join(' ')
+        : '🦎 PLAY A GAME TO START EARNING XP AND BADGES';
+    }
+
+    function renderFriends() {
+      const two = games.filter(g => g.tags.includes('2 Player'));
+      const r = two.length ? Math.floor(Date.now() / 864e5) % two.length : 0;
+      const list = two.slice(r).concat(two.slice(0, r)).slice(0, 4);
+      $('friendGrid').innerHTML = list.map(g => cardHTML(g, false)).join('');
+      $('friendSection').classList.toggle('has-favorites', list.length > 0);
+    }
+
+    function renderLinks() {
+      let h = '';
+      if (CFG.requestUrl) h += ' &nbsp;·&nbsp; <a href="' + esc(CFG.requestUrl) + '" target="_blank" rel="noopener">Request a game</a>';
+      if (CFG.discordUrl) h += ' &nbsp;·&nbsp; <a href="' + esc(CFG.discordUrl) + '" target="_blank" rel="noopener">Discord</a>';
+      $('reqLink').innerHTML = h;
+      $('collLinks').innerHTML = ['2 Player', 'Sports', 'Racing', 'Action', 'Horror', 'Idle'].map(c =>
+        `<a href="/best/${c.toLowerCase().replace(/ /g, '-')}-games/">Best ${esc(c)} Games</a>`).join(' &nbsp;·&nbsp; ');
     }
 
     function toggleFav(id) {
@@ -309,14 +404,16 @@
       } else if (cat) {
         $('searchBar').value = '';
         activeCat = cat.dataset.cat; page = 1; render();
+        if (cat.dataset.scroll) $('sports').scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     });
 
     fetch('games.json', { cache: 'no-cache' })
       .then(r => r.json())
-      .then(data => { games = data.filter(g => !g.hidden); buildCats(); render(); renderFavorites(); renderPopular();
-        if (REQUEST_URL) $('reqLink').innerHTML = ' &nbsp;·&nbsp; <a href="' + REQUEST_URL + '" target="_blank" rel="noopener">Request a game</a>'; })
+      .then(data => { games = data.filter(g => !g.hidden).map(normalize); buildCats(); render(); renderFavorites(); renderPopular(); renderRecent(); renderGotd(); renderStats(); renderFriends(); renderLinks(); })
       .catch(() => { $('noResults').textContent = 'Could not load games.json'; $('noResults').style.display = 'block'; });
+
+    if ('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js').catch(() => {});
 
     // Keep the tab title from being changed by other scripts
     (function() {

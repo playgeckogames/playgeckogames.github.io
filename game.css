@@ -40,3 +40,9 @@ header{border-bottom:2px solid var(--accent);padding:0 2rem;display:flex;align-i
 footer{border-top:1px solid var(--border);padding:2rem;text-align:center;font-size:.65rem;color:#444466;letter-spacing:2px}
 footer a{color:#666688;text-decoration:none}
 footer a:hover{color:var(--accent)}
+.sidebar .ad-placeholder{position:sticky;top:20px}
+.logo::before{content:'';display:inline-block;width:1.1em;height:1.1em;margin-right:.35rem;vertical-align:-.12em;background:url(/mascot.svg) center/contain no-repeat}
+.mg p{padding:0 .5rem .6rem;font-size:.6rem;color:#8888aa;line-height:1.5}
+.coll-page{max-width:1100px;margin:0 auto;padding:2rem}
+.coll-intro{font-size:.75rem;color:#8888aa;line-height:1.8;margin-bottom:1.5rem;max-width:700px}
+.coll-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem}
